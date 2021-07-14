@@ -7,11 +7,11 @@
 
 // Time: O(m^n * n), n = length of targetWord, m = number of words in wordBank
 // Space: O(n)
-const bruteForceCanConstruct = (targetWord: string, wordBank: string[]) : boolean => {
+const bruteForceCanConstruct = (targetWord: string, wordBank: string[]): boolean => {
   if (targetWord === '') return true;
-  
+
   for (let word of wordBank) {
-    const index = targetWord.indexOf(word); 
+    const index = targetWord.indexOf(word);
     if (index === 0) {
       const result = bruteForceCanConstruct(targetWord.slice(word.length), wordBank); // TIP: slicing involves copying
       if (result) {
@@ -23,30 +23,39 @@ const bruteForceCanConstruct = (targetWord: string, wordBank: string[]) : boolea
   return false;
 }
 
-console.log('bruteForceCanConstruct("abcdef", ["ab","abc","cd","def","abcd"]) should return true:', bruteForceCanConstruct("abcdef", ["ab","abc","cd","def","abcd"]));
-console.log('bruteForceCanConstruct("skateboard", ["bo","rd","ate","t","ska", "sk", "boar"]) should return false: ', bruteForceCanConstruct("skateboard", ["bo","rd","ate","t","ska", "sk", "boar"]));
-console.log('bruteForceCanConstruct("fffffffffffffffffffe", ["eeee", "e", "lol"]) should return false: ', bruteForceCanConstruct("fffffffffffffffffffe", ["eeeee", "e", "lol"]));
+console.log('bruteForceCanConstruct("abcdef", ["ab","abc","cd","def","abcd"]) should return true:', bruteForceCanConstruct("abcdef", ["ab", "abc", "cd", "def", "abcd"]));
+console.log('bruteForceCanConstruct("skateboard", ["bo","rd","ate","t","ska", "sk", "boar"]) should return false: ', bruteForceCanConstruct("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"]));
+var arr = ["f",
+  "ff",
+  "fff",
+  "ffff",
+  "fffff",
+  "ffffff",
+  "fffffff",
+  "fffffffff"
+]
+console.log(`bruteForceCanConstruct("fffffffffffffffffffe", ${arr}) should return false: `, bruteForceCanConstruct("fffffffffffffffffffe", arr));
 
 // Time: O(m * n * n), n = length of targetWord, m = number of words in wordBank
 // Time: O(n^2)
-const dynamicCanConstruct = (targetWord: string, wordBank: string[], memo: Record<string, boolean> = {}) : boolean => {
+const dynamicCanConstruct = (targetWord: string, wordBank: string[], memo: Record<string, boolean> = {}): boolean => {
   if (targetWord in memo) return memo[targetWord];
   if (targetWord === '') return true;
-  
+
   for (let word of wordBank) {
-    const index = targetWord.indexOf(word); 
+    const index = targetWord.indexOf(word);
     if (index === 0) {
       const result = dynamicCanConstruct(targetWord.slice(word.length), wordBank, memo); // TIP: slicing involves copying
-      memo[targetWord] = result
+      memo[targetWord] = result;
       if (result) {
         return result;
       }
     }
   }
-
+  memo[targetWord] = false;
   return false;
 }
 
-console.log('dynamicCanConstruct("abcdef", ["ab","abc","cd","def","abcd"]) should return true:', dynamicCanConstruct("abcdef", ["ab","abc","cd","def","abcd"]));
-console.log('dynamicCanConstruct("skateboard", ["bo","rd","ate","t","ska", "sk", "boar"]) should return false: ', dynamicCanConstruct("skateboard", ["bo","rd","ate","t","ska", "sk", "boar"]));
-console.log('dynamicCanConstruct("fffffffffffffffffffe", ["eeee", "e", "lol"]) should return false: ', dynamicCanConstruct("fffffffffffffffffffe", ["eeeee", "e", "lol"]));
+console.log('dynamicCanConstruct("abcdef", ["ab","abc","cd","def","abcd"]) should return true:', dynamicCanConstruct("abcdef", ["ab", "abc", "cd", "def", "abcd"]));
+console.log('dynamicCanConstruct("skateboard", ["bo","rd","ate","t","ska", "sk", "boar"]) should return false: ', dynamicCanConstruct("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"]));
+console.log(`dynamicCanConstruct("fffffffffffffffffffe", ${arr}) should return false: `, dynamicCanConstruct("fffffffffffffffffffe", arr));

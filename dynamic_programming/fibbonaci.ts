@@ -20,7 +20,7 @@ const dynamicRecursiveFib = (n: number, memo = {}) : number => {
 
 // Time: O(n)
 // Space: O(n)
-const dynamicFib = (n: number) : number => {
+const dynamicIterativeFib = (n: number) : number => {
   if (n <= 0) return -1;
   if (n <= 2) return 1;
   const memory = [1 , 1]; // Can use 2 variable to get O(1) memory
@@ -33,7 +33,7 @@ const dynamicFib = (n: number) : number => {
   return memory.pop()!;
 }
 
-console.log('dynamicFib: ', dynamicFib(1));
-console.log('dynamicFib(2): ', dynamicFib(2));
-console.log('dynamicFib(3): ', dynamicFib(3));
-console.log('dynamicFib(50): ', dynamicFib(50));
+console.log('dynamicIterativeFib: ', dynamicIterativeFib(1));
+console.log('dynamicIterativeFib(2): ', dynamicIterativeFib(2));
+console.log('dynamicIterativeFib(3): ', dynamicIterativeFib(3));
+console.log('dynamicIterativeFib(50): ', dynamicIterativeFib(50));

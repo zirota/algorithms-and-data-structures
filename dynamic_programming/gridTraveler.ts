@@ -32,3 +32,27 @@ console.log('dynamicRecursiveGridTraveler(1, 1): ', dynamicRecursiveGridTraveler
 console.log('dynamicRecursiveGridTraveler(2, 3): ', dynamicRecursiveGridTraveler(2, 3));
 console.log('dynamicRecursiveGridTraveler(50, 50): ', dynamicRecursiveGridTraveler(50, 50));
 
+// Time: O(m * n)
+// Space: O(m * n) --> Size of grid
+const iterativeGridTraveler = (m: number, n: number, memo : Record<string, number> = {}) : number => {
+  if (m === 1 && n === 1) return 1;
+  if (m === 0 || n === 0) return 0;
+  const grid : number[][] = Array(m + 1)
+    .fill(undefined)
+    .map(() => Array(n + 1).fill(0));
+  grid[1][1] = 1;
+  for (let i = 0; i <= m; i++) {
+    for (let j = 0; j <= n; j++) {
+      const current = grid[i][j];
+      if (j + 1 <= n) grid[i][j + 1] += current;
+      if (i + 1 <= m) grid[i + 1][j] += current;
+    }
+  }
+  return grid[m][n];
+}
+
+console.log('iterativeGridTraveler(3,2):', iterativeGridTraveler(3, 2));
+console.log('iterativeGridTraveler(0, 0): ', iterativeGridTraveler(0, 0));
+console.log('iterativeGridTraveler(1, 1): ', iterativeGridTraveler(1, 1));
+console.log('iterativeGridTraveler(2, 3): ', iterativeGridTraveler(2, 3));
+console.log('iterativeGridTraveler(50, 50): ', iterativeGridTraveler(50, 50));
